@@ -2,7 +2,19 @@ class BackendService {
 
     constructor() {}
 
-    login(body: { email: string; password: string; }) {
+    login(body: { email: string; password: string; }): Promise<{
+        token: string;
+        user: {
+            email: string;
+            name: string;
+            picture: string;
+            profile: {
+                uid: string;
+                role: string;
+                details: any;
+            };
+        };
+    }> {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (body.email === 'heri@heri.co' && body.password === 'password') {

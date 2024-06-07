@@ -12,9 +12,9 @@ export const api = createApi({
                 login: builder.mutation<{token: string}, {email: string, password: string}>({
                     queryFn: async(body: {email: string, password: string}, api, extraOptions) => {
                         try {
-                                const user = await backendService.login(body);
-                                api.dispatch(loginUser({user: {}, token: user.token}))
-                                return {data: user}
+                                const reponse = await backendService.login(body);
+                                api.dispatch(loginUser({user: reponse.user, token: reponse.token}))
+                                return {data: reponse}
                         } catch (error) {
                             return {error: error}
                         }
