@@ -1,0 +1,6 @@
+{
+  "eslint.format.enable": true,
+  "eslint.codeActionsOnSave.rules": null,
+  "eslint.enable": true,
+  "eslint.experimental.useFlatConfig": true
+}
