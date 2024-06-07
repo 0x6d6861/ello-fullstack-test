@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import {RootState} from "../../store.ts";
-import {appLocalStorage} from "../../../utils/app-storage.ts";
 import { IUser } from '../../api';
+import { appLocalStorage } from '../../../utils/app-storage.ts';
 
 export interface AuthState {
     user: IUser | null
