@@ -6,7 +6,19 @@ class BackendService {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (body.email === 'heri@heri.co' && body.password === 'password') {
-                    resolve({ token: 'fake-token' });
+                    resolve({ 
+                        token: 'fake-token', 
+                        user: { 
+                            email: body.email, 
+                            name: 'Teacher Heri', 
+                            picture: '/profiles/heri_agape.webp',
+                            profile: {
+                                uid: '123456789',
+                                role: 'teacher',
+                                details: {}
+                            }
+                        } 
+                    });
                 } else {
                     reject(new Error('Invalid credentials'));
                 }

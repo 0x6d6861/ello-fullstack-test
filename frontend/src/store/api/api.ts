@@ -1,4 +1,5 @@
 import backendService from "../../services/backend-service.ts";
+import { loginUser } from "../features/auth/slice.ts";
 import fetchBaseQuery from "./fetchBaseQuery.ts";
 
 import {createApi} from "@reduxjs/toolkit/query/react";
@@ -9,9 +10,10 @@ export const api = createApi({
         tagTypes: [],
         endpoints: (builder) => ({
                 login: builder.mutation<{token: string}, {email: string, password: string}>({
-                    queryFn: async(body: {email: string, password: string}) => {
+                    queryFn: async(body: {email: string, password: string}, api, extraOptions) => {
                         try {
                                 const user = await backendService.login(body);
+                                api.dispatch(loginUser({user: {}, token: user.token}))
                                 return {data: user}
                         } catch (error) {
                             return {error: error}

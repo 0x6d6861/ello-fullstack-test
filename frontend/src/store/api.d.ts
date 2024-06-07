@@ -1,8 +1,9 @@
 export interface IUser {
     uid: string
     name: string
-    phone: string
-    email: string
+    picture: string
+    email: string,
+    profile: IProfile
 }
 
 export interface IProfile {
