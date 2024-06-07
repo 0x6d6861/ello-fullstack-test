@@ -1,4 +1,4 @@
-import {apiBaseUrl} from "../../utils/environment.ts";
+import { apiBaseUrl } from "../../utils/environment.ts";
 import {RootState} from "../store.ts";
 import {fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 

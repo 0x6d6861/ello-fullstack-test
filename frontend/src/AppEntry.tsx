@@ -4,6 +4,7 @@ import { isLoggedIn } from "./store/features/auth/slice";
 import protectedRoutes from "./router/protected.tsx";
 import publicRoutes from "./router/public.tsx";
 import { RouterProvider } from "react-router-dom";
+import { CssBaseline } from "@mui/material";
 
 function AppEntry(props) {
   const userIsLoggedIn = useSelector(isLoggedIn);
@@ -12,6 +13,7 @@ function AppEntry(props) {
 
   return (
     <>
+      <CssBaseline />
       <RouterProvider router={routes} />
     </>
   );
