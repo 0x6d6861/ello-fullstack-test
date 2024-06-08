@@ -25,7 +25,7 @@ const router: RouteObject[] = [
             element: <StudentModuleIndex />,
           },
           {
-            path: ":id",
+            path: ":studentId",
             element: <StudentModuleSingleStudentLayout />,
             children: [
               {
