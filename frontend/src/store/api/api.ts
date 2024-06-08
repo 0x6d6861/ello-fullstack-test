@@ -7,6 +7,7 @@ import {print} from 'graphql';
 
 import {createApi} from "@reduxjs/toolkit/query/react";
 import { students } from "./data.ts";
+import { addStudent } from "../features/main/slice.ts";
 
 export const api = createApi({
         reducerPath: 'api',
@@ -26,9 +27,10 @@ export const api = createApi({
                 }),
 
                 getStudents: builder.query({
-                        queryFn: async() => {
+                        queryFn: async(_, api) => {
                         try {
                                 return {data: students}
+
                         } catch (error) {
                                 return {error: error}
                         }
@@ -36,9 +38,13 @@ export const api = createApi({
                 }),
 
                 getStudentById: builder.query({
-                        queryFn: async(id: string | number) => {
+                        queryFn: async(id: string | number, api) => {
                         try {
-                                return {data: students.find((el) => el.id === id)}
+                                const student = students.find((el) => el.id === id)
+                                if(student) {
+                                        api.dispatch(addStudent(student))
+                                }
+                                return {data: student}
                         } catch (error) {
                                 return {error: error}
                         }

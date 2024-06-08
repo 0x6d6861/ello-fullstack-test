@@ -10,16 +10,26 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import { Book } from "../../store/api";
 
-export default function SearchBook() {
+export default function SearchBook({
+  onSelect,
+}: {
+  onSelect: (book: Book) => void;
+}) {
   const { data, error, loading: isLoading } = useGetBooks();
   return (
     <Autocomplete
       id="seach-book"
       sx={{ width: 500 }}
       options={data.books}
-      autoHighlight
+      autoHighlight={true}
       getOptionLabel={(option) => option.title}
+      onChange={(_, value) => {
+        if (value) {
+          onSelect(value);
+        }
+      }}
       renderOption={(props, option) => (
         <ListItem alignItems="flex-start" {...props}>
           <ListItemAvatar>

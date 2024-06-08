@@ -32,13 +32,16 @@ export const mainSlice = createSlice({
     initialState,
     reducers: {
         addStudent: (state, action: PayloadAction<{id: string, name: string, class: string, picture: string}>) => {
-            state.students[action.payload.id] = {
-                id: action.payload.id,
-                name: action.payload.name,
-                picture: action.payload.picture,
-                class: action.payload.class,
-                readings: []
+            if(!state.students[action.payload.id]) {
+                state.students[action.payload.id] = {
+                    id: action.payload.id,
+                    name: action.payload.name,
+                    picture: action.payload.picture,
+                    class: action.payload.class,
+                    readings: []
+                }
             }
+            
         },
         addBook: (state, action: PayloadAction<{studentId: string, book: Book}>) => {
             state.students[action.payload.studentId].readings.push(action.payload.book)
@@ -53,6 +56,6 @@ export const mainSlice = createSlice({
 export const { addStudent, addBook, removeBook } = mainSlice.actions
 
 export const getAllStudents = (state: RootState) => state.main.students;
-export const getStudentById = (state: RootState, id: string) => state.main.students[id] || null;
+export const getStudentById = (state: RootState) => (id) => state.main.students[id] || null;
 
 export default mainSlice.reducer

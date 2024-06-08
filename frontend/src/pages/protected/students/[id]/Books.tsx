@@ -1,19 +1,36 @@
 import React, { useState } from "react";
-import { api } from "../../../../store/api/api";
 import { Box, CircularProgress, Container, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { useGetBooks } from "../../../../hooks/books";
 import HorizontalBook from "../../../../components/books/HorizontalBook";
 import SearchBook from "../../../../components/books/SearchBook";
+import { useSelector } from "react-redux";
+import {
+  addBook,
+  getAllStudents,
+  getStudentById,
+} from "../../../../store/features/main/slice";
+import { useParams } from "react-router-dom";
+import { Book } from "../../../../store/api";
+import { useAppDispatch } from "../../../../store/store";
 
 function BooksPage(props) {
-  const [searchTerm, setSearchTerm] = useState("");
   //   const { data, error, isLoading } = api.useGetBooksQuery(searchTerm);
   const { data, error, loading: isLoading } = useGetBooks();
+  const { studentId } = useParams();
+  const student = useSelector(getStudentById)(studentId);
+  const dispatch = useAppDispatch();
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+  const handleOnSelect = (book: Book) => {
+    dispatch(
+      addBook({
+        book,
+        studentId,
+      })
+    );
   };
+
+  console.log(student);
 
   if (isLoading) return <CircularProgress />;
   if (error)
@@ -35,7 +52,7 @@ function BooksPage(props) {
           //   backgroundColor: "red",
         }}
       >
-        <SearchBook />
+        <SearchBook onSelect={handleOnSelect} />
       </Box>
 
       <Grid
@@ -43,7 +60,7 @@ function BooksPage(props) {
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        {data?.books?.map((book) => (
+        {student?.readings?.map((book) => (
           <Grid
             key={book.id}
             xs={4}
