@@ -4,33 +4,29 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { useGetBooks } from "../../../../hooks/books";
 import HorizontalBook from "../../../../components/books/HorizontalBook";
 import SearchBook from "../../../../components/books/SearchBook";
-import { useSelector } from "react-redux";
-import {
-  addBook,
-  getAllStudents,
-  getStudentById,
-} from "../../../../store/features/main/slice";
-import { useParams } from "react-router-dom";
+import { addBook } from "../../../../store/features/main/slice";
+import { useOutletContext, useParams } from "react-router-dom";
 import { Book } from "../../../../store/api";
 import { useAppDispatch } from "../../../../store/store";
+import { ContextType } from "./Layout";
 
 function BooksPage(props) {
   //   const { data, error, isLoading } = api.useGetBooksQuery(searchTerm);
   const { data, error, loading: isLoading } = useGetBooks();
-  const { studentId } = useParams();
-  const student = useSelector(getStudentById)(studentId);
+
+  const { studentId, studentList } = useOutletContext<ContextType>();
+
+  //   const student = useSelector(getStudentById)(studentId);
   const dispatch = useAppDispatch();
 
   const handleOnSelect = (book: Book) => {
     dispatch(
       addBook({
-        book,
-        studentId,
+        book: book,
+        studentId: studentId!,
       })
     );
   };
-
-  console.log(student);
 
   if (isLoading) return <CircularProgress />;
   if (error)
@@ -60,7 +56,7 @@ function BooksPage(props) {
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        {student?.readings?.map((book) => (
+        {studentList?.map((book) => (
           <Grid
             key={book.id}
             xs={4}

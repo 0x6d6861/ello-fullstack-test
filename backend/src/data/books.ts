@@ -1,4 +1,6 @@
-export const booksData = [
+import { uid } from 'uid';
+
+const data = [
   {
     'title': 'Curious Princess and the Enchanted Garden',
     'author': 'Reese Smith',
@@ -600,3 +602,10 @@ export const booksData = [
     'readingLevel': 'J'
   }
 ];
+
+export const booksData = data.map((book) => {
+  return {
+    uid: uid(),
+    ...book
+  };
+});

@@ -10,17 +10,23 @@ import {
 import React, { useEffect } from "react";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { api } from "../../../../store/api/api";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
+import { useSelector } from "react-redux";
+import { getStudentById } from "../../../../store/features/main/slice";
+import { Book } from "../../../../store/api";
+
+export type ContextType = {
+  studentId: string | undefined;
+  studentList: Book[] | undefined;
+};
 
 function Layout() {
-  const [tab, setTab] = React.useState("books");
   const { studentId } = useParams();
-
-  const navigate = useNavigate();
 
   const { data: student, isLoading } = api.useGetStudentByIdQuery(
     Number(studentId)
   );
+
+  const studentList = useSelector(getStudentById)(studentId);
 
   if (isLoading) {
     return <p>Is loadings</p>;
@@ -67,12 +73,23 @@ function Layout() {
               alignItems: "center",
             }}
           >
-            <Typography variant="h5">No reading list</Typography>
+            {studentList?.readings?.length > 0 && (
+              <Typography variant="h5">
+                {studentList?.readings?.length} reading list
+              </Typography>
+            )}
           </Box>
         </Box>
       </Box>
 
-      <Outlet />
+      <Outlet
+        context={
+          {
+            studentId,
+            studentList: studentList?.readings,
+          } satisfies ContextType
+        }
+      />
     </>
   );
 }

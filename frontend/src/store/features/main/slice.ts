@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import {RootState} from "../../store.ts";
+import { Book } from '../../api';
 
 type MainSliceType = {
     students: {
@@ -13,15 +14,6 @@ type MainSliceType = {
         }}
 }
 
-type ReadingLevel = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J'
-
-type Book = {
-    id: string
-    title: string
-    author: string
-    coverPhotoURL: string
-    readingLevel: ReadingLevel
-}
 
 const initialState: MainSliceType = {
     students: {}
@@ -44,10 +36,18 @@ export const mainSlice = createSlice({
             
         },
         addBook: (state, action: PayloadAction<{studentId: string, book: Book}>) => {
-            state.students[action.payload.studentId].readings.push(action.payload.book)
+            const existingBookIndex = state.students[action.payload.studentId].readings.findIndex(
+                (existingBook) => existingBook.uid === action.payload.book.uid
+            );
+
+            if (existingBookIndex === -1) {
+                state.students[action.payload.studentId].readings.unshift(action.payload.book);
+            } else {
+                console.log("Book already exists for this student.");
+            }
         },
         removeBook: (state, action: PayloadAction<{studentId: string, bookId: string}>) => {
-            state.students[action.payload.studentId].readings = state.students[action.payload.studentId].readings.filter(book => book.id !== action.payload.bookId)
+            state.students[action.payload.studentId].readings = state.students[action.payload.studentId].readings.filter(book => book.uid !== action.payload.bookId)
         }
     },
 })
