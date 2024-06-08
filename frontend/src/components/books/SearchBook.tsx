@@ -31,7 +31,7 @@ export default function SearchBook({
         }
       }}
       renderOption={(props, option) => (
-        <ListItem alignItems="flex-start" {...props}>
+        <ListItem alignItems="flex-start" {...props} key={option.uid}>
           <ListItemAvatar>
             <img
               style={{

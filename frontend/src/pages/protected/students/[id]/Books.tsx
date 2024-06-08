@@ -77,7 +77,11 @@ function BooksPage(props) {
               alignItems: "center",
             }}
           >
-            <HorizontalBook book={book} onRemove={handleOnRemove} />
+            <HorizontalBook
+              key={book.uid}
+              book={book}
+              onRemove={handleOnRemove}
+            />
           </Grid>
         ))}
       </Grid>
