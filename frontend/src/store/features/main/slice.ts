@@ -8,6 +8,7 @@ type MainSliceType = {
             id: string
             name: string
             picture: string
+            class: string
             readings: Book[]
         }}
 }
@@ -30,11 +31,12 @@ export const mainSlice = createSlice({
     name: 'main',
     initialState,
     reducers: {
-        addStudent: (state, action: PayloadAction<{id: string, name: string, picture: string}>) => {
+        addStudent: (state, action: PayloadAction<{id: string, name: string, class: string, picture: string}>) => {
             state.students[action.payload.id] = {
                 id: action.payload.id,
                 name: action.payload.name,
                 picture: action.payload.picture,
+                class: action.payload.class,
                 readings: []
             }
         },
@@ -51,4 +53,6 @@ export const mainSlice = createSlice({
 export const { addStudent, addBook, removeBook } = mainSlice.actions
 
 export const getAllStudents = (state: RootState) => state.main.students;
+export const getStudentById = (state: RootState, id: string) => state.main.students[id] || null;
+
 export default mainSlice.reducer

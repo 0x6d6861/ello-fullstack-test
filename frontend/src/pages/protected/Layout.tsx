@@ -12,6 +12,7 @@ function Layout(props) {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
+          marginBlock: 8,
         }}
       >
         <TopBar />
