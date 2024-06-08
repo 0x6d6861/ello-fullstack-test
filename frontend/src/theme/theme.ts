@@ -19,7 +19,7 @@ const secondaryColors = {
 
 export const theme = createTheme({  
     palette: {
-        primary: {
+      primary: {
         main: primaryColors.turquoise,
         contrastText: primaryColors.white,
         dark: primaryColors.steelBlue,

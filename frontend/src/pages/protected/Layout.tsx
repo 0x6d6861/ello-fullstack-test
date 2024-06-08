@@ -1,11 +1,20 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import TopBar from "../../components/TopBar";
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
+import { theme } from "../../theme/theme";
 
 function Layout(props) {
   return (
-    <>
+    <Box
+      sx={{
+        // backgroundColor: theme.palette.primary.dark,
+        height: "100vh",
+        width: "100vw",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <Container
         maxWidth="lg"
         sx={{
@@ -17,10 +26,10 @@ function Layout(props) {
       >
         <TopBar />
       </Container>
-      <Container maxWidth="lg">
+      <Box sx={{ flex: 1 }}>
         <Outlet />
-      </Container>
-    </>
+      </Box>
+    </Box>
   );
 }
 

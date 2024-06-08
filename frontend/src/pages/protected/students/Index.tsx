@@ -15,7 +15,7 @@ function Index(props) {
   const { data, isLoading } = api.useGetStudentsQuery(null);
 
   return (
-    <Container>
+    <Container maxWidth="lg">
       <Typography variant="h5" gutterBottom>
         Student List
       </Typography>

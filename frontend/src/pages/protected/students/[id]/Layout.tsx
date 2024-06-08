@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Container,
   ListItem,
   ListItemAvatar,
   ListItemText,
@@ -14,7 +15,7 @@ import { useSelector } from "react-redux";
 import { getStudentById } from "../../../../store/features/main/slice";
 import { Book } from "../../../../store/api";
 
-export type ContextType = {
+type ContextType = {
   studentId: string | undefined;
   studentList: Book[] | undefined;
 };
@@ -34,62 +35,72 @@ function Layout() {
 
   return (
     <>
-      <Box
-        key={student?.id}
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          marginBottom: 4,
-        }}
-      >
+      <Container maxWidth="lg">
         <Box
+          key={student?.id}
           sx={{
             display: "flex",
             flexDirection: "row",
-            gap: 4,
-            width: "100%",
+            marginBottom: 4,
           }}
         >
-          <Avatar
-            sx={{
-              height: 100,
-              width: 100,
-              borderRadius: 4,
-            }}
-            src={student?.picture}
-            alt={student?.name}
-          />
-          <Box>
-            <Typography variant="h4">{student?.name}</Typography>
-            <Typography variant="body1">Class: {student?.class}</Typography>
-          </Box>
           <Box
             sx={{
-              flex: 1,
-              // backgroundColor: "red",
               display: "flex",
               flexDirection: "row",
-              justifyContent: "flex-end",
-              alignItems: "center",
+              gap: 4,
+              width: "100%",
             }}
           >
-            {studentList?.readings?.length > 0 && (
-              <Typography variant="h5">
-                {studentList?.readings?.length} reading list
-              </Typography>
-            )}
+            <Avatar
+              sx={{
+                height: 100,
+                width: 100,
+                borderRadius: 4,
+              }}
+              src={student?.picture}
+              alt={student?.name}
+            />
+            <Box>
+              <Typography variant="h4">{student?.name}</Typography>
+              <Typography variant="body1">Class: {student?.class}</Typography>
+            </Box>
+            <Box
+              sx={{
+                flex: 1,
+                // backgroundColor: "red",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                alignItems: "center",
+              }}
+            >
+              {studentList?.readings?.length > 0 && (
+                <Typography variant="h5">
+                  {studentList?.readings?.length} reading list
+                </Typography>
+              )}
+            </Box>
           </Box>
         </Box>
+      </Container>
+      <Box
+        sx={{
+          backgroundColor: "#f5f5f5",
+          flex: 1,
+        }}
+      >
+        <Container maxWidth="lg">
+          <Outlet
+            context={
+              {
+                studentId,
+                studentList: studentList?.readings,
+              } satisfies ContextType
+            }
+          />
+        </Container>
       </Box>
-
-      <Outlet
-        context={
-          {
-            studentId,
-            studentList: studentList?.readings,
-          } satisfies ContextType
-        }
-      />
     </>
   );
 }

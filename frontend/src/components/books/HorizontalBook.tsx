@@ -61,6 +61,7 @@ function HorizontalBook(props: { book: Book }) {
           textOverflow: "ellipsis",
         }}
         component="div"
+        color="text.primary"
         variant="h6"
       >
         {props.book.title}
