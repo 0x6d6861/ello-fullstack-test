@@ -1,0 +1,41 @@
+version: '3.9'
+
+networks:
+  main_network:
+    driver: bridge
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend:/usr/src/app
+    command: npm start
+    networks:
+      - main_network
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/usr/src/app
+    command: serve -s dist
+    networks:
+      - main_network
+
+  gateway:
+    build:
+      context: ./gateway
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - main_network
