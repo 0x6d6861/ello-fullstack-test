@@ -22,16 +22,6 @@ function Layout() {
     Number(studentId)
   );
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setTab(newValue);
-  };
-
-  useEffect(() => {
-    if (tab) {
-      navigate(tab);
-    }
-  }, [tab]);
-
   if (isLoading) {
     return <p>Is loadings</p>;
   }
@@ -51,6 +41,7 @@ function Layout() {
             display: "flex",
             flexDirection: "row",
             gap: 4,
+            width: "100%",
           }}
         >
           <Avatar
@@ -66,21 +57,22 @@ function Layout() {
             <Typography variant="h4">{student?.name}</Typography>
             <Typography variant="body1">Class: {student?.class}</Typography>
           </Box>
+          <Box
+            sx={{
+              flex: 1,
+              // backgroundColor: "red",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h5">No reading list</Typography>
+          </Box>
         </Box>
       </Box>
 
-      <TabContext value={tab}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList onChange={handleChange} centered>
-            <Tab label="Reading list" value="books" />
-            <Tab label="Timetable" value="2" disabled />
-            {/* <Tab label="Item Three" value="3" /> */}
-          </TabList>
-        </Box>
-        <TabPanel value={tab}>
-          <Outlet />
-        </TabPanel>
-      </TabContext>
+      <Outlet />
     </>
   );
 }
