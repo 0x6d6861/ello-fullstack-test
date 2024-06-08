@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Button,
   Container,
   ListItem,
   ListItemAvatar,
@@ -14,6 +15,7 @@ import { api } from "../../../../store/api/api";
 import { useSelector } from "react-redux";
 import { getStudentById } from "../../../../store/features/main/slice";
 import { Book } from "../../../../store/api";
+import { ArrowBack } from "@mui/icons-material";
 
 type ContextType = {
   studentId: string | undefined;
@@ -36,12 +38,15 @@ function Layout() {
   return (
     <>
       <Container maxWidth="lg">
+        <Button variant="text" color="inherit" startIcon={<ArrowBack />}>
+          Back to students list
+        </Button>
         <Box
           key={student?.id}
           sx={{
             display: "flex",
             flexDirection: "row",
-            marginBottom: 4,
+            marginBlock: 4,
           }}
         >
           <Box

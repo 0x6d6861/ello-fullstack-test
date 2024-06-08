@@ -4,7 +4,7 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { useGetBooks } from "../../../../hooks/books";
 import HorizontalBook from "../../../../components/books/HorizontalBook";
 import SearchBook from "../../../../components/books/SearchBook";
-import { addBook } from "../../../../store/features/main/slice";
+import { addBook, removeBook } from "../../../../store/features/main/slice";
 import { useOutletContext, useParams } from "react-router-dom";
 import { Book } from "../../../../store/api";
 import { useAppDispatch } from "../../../../store/store";
@@ -23,6 +23,15 @@ function BooksPage(props) {
     dispatch(
       addBook({
         book: book,
+        studentId: studentId!,
+      })
+    );
+  };
+
+  const handleOnRemove = (book: Book) => {
+    dispatch(
+      removeBook({
+        bookId: book.uid,
         studentId: studentId!,
       })
     );
@@ -68,7 +77,7 @@ function BooksPage(props) {
               alignItems: "center",
             }}
           >
-            <HorizontalBook book={book} />
+            <HorizontalBook book={book} onRemove={handleOnRemove} />
           </Grid>
         ))}
       </Grid>

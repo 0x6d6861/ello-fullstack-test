@@ -9,6 +9,7 @@ import {
   ListItemIcon,
   Menu,
   MenuItem,
+  styled,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -17,6 +18,20 @@ import { useSelector } from "react-redux";
 import { getUser, logoutUser } from "../store/features/auth/slice";
 import { useAppDispatch } from "../store/store";
 import ello_logo from "../assets/logo/ello.svg";
+
+const StyledAvatar = styled(Avatar)`
+  ${({ theme }) => `
+  cursor: pointer;
+  background-color: ${theme.palette.primary.main};
+  transition: ${theme.transitions.create(["background-color", "transform"], {
+    duration: theme.transitions.duration.standard,
+  })};
+  &:hover {
+    background-color: ${theme.palette.secondary.main};
+    transform: scale(1.3);
+  }
+  `}
+`;
 
 function TopBar(props) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -95,22 +110,20 @@ function TopBar(props) {
             </Button>
           </div>
         </div>
-        <Tooltip title="Account settings">
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={open ? "account-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-          >
-            <Avatar
-              sx={{ width: 48, height: 48 }}
-              alt={user?.name}
-              src={user?.picture}
-            />
-          </IconButton>
-        </Tooltip>
+        <IconButton
+          onClick={handleClick}
+          size="small"
+          sx={{ ml: 2 }}
+          aria-controls={open ? "account-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+        >
+          <StyledAvatar
+            sx={{ width: 48, height: 48 }}
+            alt={user?.name}
+            src={user?.picture}
+          />
+        </IconButton>
       </Box>
       <Menu
         anchorEl={anchorEl}

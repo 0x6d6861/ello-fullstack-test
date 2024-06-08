@@ -2,6 +2,7 @@ import { useTheme } from "@emotion/react";
 import {
   Badge,
   Box,
+  Button,
   Card,
   CardContent,
   CardMedia,
@@ -9,17 +10,23 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Book } from "../../store/api";
 
-function HorizontalBook(props: { book: Book }) {
+function HorizontalBook(props: {
+  book: Book;
+  onRemove?: (book: Book) => void;
+}) {
   const theme = useTheme();
+  const [show, setShow] = useState(false);
 
   return (
     <Box
       sx={{
         width: 200,
       }}
+      onMouseOver={() => setShow(true)}
+      onMouseOut={() => setShow(false)}
     >
       <Box
         sx={{
@@ -54,29 +61,45 @@ function HorizontalBook(props: { book: Book }) {
         </div>
       </Box>
 
-      <Typography
-        sx={{
-          fontSize: "1rem",
-          fontWeight: "700",
-          textOverflow: "ellipsis",
-        }}
-        component="div"
-        color="text.primary"
-        variant="h6"
-      >
-        {props.book.title}
-      </Typography>
-      <Typography
-        sx={{
-          fontSize: "0.8125rem",
-          fontWeight: "600",
-        }}
-        variant="subtitle1"
-        color="text.secondary"
-        component="div"
-      >
-        by {props.book.author}
-      </Typography>
+      {show && (
+        <Button
+          variant="text"
+          color="error"
+          onClick={() => {
+            props.onRemove && props.onRemove(props.book);
+          }}
+        >
+          Remove
+        </Button>
+      )}
+
+      {!show && (
+        <>
+          <Typography
+            sx={{
+              fontSize: "1rem",
+              fontWeight: "700",
+              textOverflow: "ellipsis",
+            }}
+            component="div"
+            color="text.primary"
+            variant="h6"
+          >
+            {props.book.title}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: "0.8125rem",
+              fontWeight: "600",
+            }}
+            variant="subtitle1"
+            color="text.secondary"
+            component="div"
+          >
+            by {props.book.author}
+          </Typography>
+        </>
+      )}
     </Box>
   );
 }

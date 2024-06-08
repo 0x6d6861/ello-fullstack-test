@@ -45,6 +45,16 @@ export const theme = createTheme({
                 '@font-face': '"Mulish", sans-serif'
             }
         }
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontWeight: 700,
+          textTransform: 'none',
+          fontSize: '1rem',
+          // padding: '0.75rem 1.5rem'
+        }
+      }
     }
   }
 });
