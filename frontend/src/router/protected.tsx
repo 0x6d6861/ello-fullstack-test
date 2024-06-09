@@ -43,7 +43,7 @@ const router: RouteObject[] = [
     element: (
       <Navigate
         to={{
-          pathname: "/home",
+          pathname: "/students",
         }}
       />
     ),
