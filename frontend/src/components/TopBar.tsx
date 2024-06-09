@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { getUser, logoutUser } from "../store/features/auth/slice";
 import { useAppDispatch } from "../store/store";
 import ello_logo from "../assets/logo/ello.svg";
+import { NavLink } from "react-router-dom";
 
 const StyledAvatar = styled(Avatar)`
   ${({ theme }) => `
@@ -84,30 +85,37 @@ function TopBar(props) {
               gap: 18,
             }}
           >
-            <Button
-              sx={{
+            <NavLink
+              className={({ isActive, isPending, isTransitioning }) =>
+                [
+                  isPending ? "pending" : "",
+                  isActive ? "active" : "",
+                  isTransitioning ? "transitioning" : "",
+                ].join(" ")
+              }
+              style={{
                 minWidth: 100,
                 fontSize: 18,
                 fontWeight: 600,
                 color: "#335c6e",
                 textTransform: "none",
               }}
-              variant="text"
+              to="/home"
             >
               Home
-            </Button>
-            <Button
-              sx={{
+            </NavLink>
+            <NavLink
+              style={{
                 minWidth: 100,
                 fontSize: 18,
                 fontWeight: 600,
                 color: "#335c6e",
                 textTransform: "none",
               }}
-              variant="text"
+              to="/students"
             >
               Students
-            </Button>
+            </NavLink>
           </div>
         </div>
         <IconButton

@@ -10,6 +10,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function Index(props) {
   const { data, isLoading } = api.useGetStudentsQuery(null);
@@ -21,7 +22,11 @@ function Index(props) {
       </Typography>
       <List>
         {data?.map((student) => (
-          <ListItem key={student.id}>
+          <ListItem
+            to={`/students/${student.id}/books`}
+            component={Link}
+            key={student.id}
+          >
             <ListItemAvatar>
               <Avatar src={student.picture} alt={student.name} />
             </ListItemAvatar>

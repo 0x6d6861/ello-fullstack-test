@@ -10,7 +10,13 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect } from "react";
-import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { api } from "../../../../store/api/api";
 import { useSelector } from "react-redux";
 import { getStudentById } from "../../../../store/features/main/slice";
@@ -38,9 +44,16 @@ function Layout() {
   return (
     <>
       <Container maxWidth="lg">
-        <Button variant="text" color="inherit" startIcon={<ArrowBack />}>
+        <Button
+          to={`/students`}
+          component={Link}
+          variant="text"
+          color="inherit"
+          startIcon={<ArrowBack />}
+        >
           Back to students list
         </Button>
+
         <Box
           key={student?.id}
           sx={{

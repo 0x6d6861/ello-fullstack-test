@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Box, CircularProgress, Container, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Container,
+  Skeleton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { useGetBooks } from "../../../../hooks/books";
 import HorizontalBook from "../../../../components/books/HorizontalBook";
@@ -66,6 +73,27 @@ function BooksPage(props) {
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
+        {studentList?.length === 0 && (
+          <Grid
+            xs={12}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Stack spacing={1} sx={{ marginBottom: 6 }}>
+              <Skeleton variant="rounded" width={200} height={200} />
+              <Skeleton variant="rounded" height={12} width={170} />
+              <Skeleton variant="rounded" height={8} width={110} />
+            </Stack>
+
+            <Typography variant="h6">{"No books yet.."}</Typography>
+            <Typography>Choose a book from the search bar above</Typography>
+          </Grid>
+        )}
+
         {studentList?.map((book) => (
           <Grid
             key={book.id}
