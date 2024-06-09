@@ -10,22 +10,25 @@ services:
       context: ./backend
     ports:
       - "4000:4000"
-    volumes:
-      - ./backend:/usr/src/app
     command: npm start
     networks:
       - main_network
+    environment:
+      - NODE_ENV=production
 
   frontend:
     build:
       context: ./frontend
     ports:
-      - "5000:5000"
+      - "3000:3000"
     depends_on:
       - backend
-    volumes:
-      - ./frontend:/usr/src/app
     command: serve -s dist
+    environment:
+      - NODE_ENV=production
+      - VITE_NODE_ENV=production
+      - VITE_BACKEND_URL=/api
+      - VITE_GRAPHQL_URL=/api
     networks:
       - main_network
 

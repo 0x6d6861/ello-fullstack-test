@@ -6,16 +6,14 @@ COPY package*.json ./
 
 COPY yarn.lock ./
 
-RUN ls -la
-
-RUN npm install
+RUN yarn install --legacy-peer-deps
 
 COPY . .
 
-RUN npm run build
+RUN yarn run build
 
-RUN npm install -g serve
+RUN yarn global add serve
 
-EXPOSE 5000
+EXPOSE 3000
 
-CMD ["serve", "-s", "dist"]
+CMD ["serve", "-s", "dist", "-p", "3000"]
