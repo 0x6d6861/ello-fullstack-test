@@ -5,15 +5,13 @@ import Paper from "@mui/material/Paper";
 
 import React from "react";
 import { Outlet } from "react-router-dom";
+import Logo from "../../components/Logo";
 
 function Layout(props) {
   return (
     <Grid sx={{ height: "100vh" }} container spacing={2}>
-      <Grid xs={8} sx={{ height: "100%" }}>
+      <Grid xs={12} sx={{ height: "100%" }}>
         <Outlet />
-      </Grid>
-      <Grid xs={4}>
-        <p>CTA</p>
       </Grid>
     </Grid>
   );

@@ -17,8 +17,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { getUser, logoutUser } from "../store/features/auth/slice";
 import { useAppDispatch } from "../store/store";
-import ello_logo from "../assets/logo/ello.svg";
 import { NavLink } from "react-router-dom";
+import Logo from "./Logo";
 
 const StyledAvatar = styled(Avatar)`
   ${({ theme }) => `
@@ -74,7 +74,7 @@ function TopBar(props) {
             gap: 2,
           }}
         >
-          <img style={{ height: 40 }} src={ello_logo} />
+          <Logo />
           <div
             style={{
               flex: 1,

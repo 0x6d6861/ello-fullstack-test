@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   CircularProgress,
@@ -12,6 +13,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { api } from "../../store/api/api";
 import { LoadingButton } from "@mui/lab";
+import Logo from "../../components/Logo";
 
 const Item = styled(Paper)(({ theme }) => ({
   //   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -19,13 +21,15 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
   textAlign: "center",
   maxWidth: 400,
-  margin: "auto",
+  display: "flex",
+  flexDirection: "column",
+  // margin: "auto",
   //   color: theme.palette.text.secondary,
 }));
 
 function LoginPage(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("heri@heri.co");
+  const [password, setPassword] = useState("password");
 
   const [login, { data, isLoading, isError, error, isSuccess }] =
     api.useLoginMutation();
@@ -49,9 +53,6 @@ function LoginPage(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Add your login logic here
-    console.log("Email:", email);
-    console.log("Password:", password);
     void login({ email, password });
   };
 
@@ -63,12 +64,22 @@ function LoginPage(props) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          alignContent: "center",
+          flexDirection: "column",
+          gap: 8,
         }}
       >
+        <Logo />
         <Item variant="outlined">
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+
+          {isError && (
+            <Alert sx={{ marginTop: 6 }} severity="error">
+              {error?.message}
+            </Alert>
+          )}
 
           <form onSubmit={handleSubmit}>
             <TextField
@@ -86,6 +97,7 @@ function LoginPage(props) {
               onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
+              sx={{ marginBottom: 6 }}
               variant="standard"
               margin="normal"
               required
