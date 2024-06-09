@@ -73,6 +73,11 @@ export const theme = createTheme({
           // padding: '0.75rem 1.5rem'
         }
       }
+    },
+    MuiMenu:{
+      defaultProps: {
+        // elevation: 2,
+      }
     }
   }
 });

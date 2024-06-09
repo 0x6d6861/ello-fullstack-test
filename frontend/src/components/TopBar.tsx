@@ -142,7 +142,12 @@ function TopBar(props) {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem
+          sx={{
+            minWidth: 200,
+          }}
+          onClick={handleClose}
+        >
           {/* <Avatar alt={user?.name} src={user?.picture} />{" "} */}
           <div>
             <Typography variant="subtitle2" gutterBottom>
@@ -154,12 +159,13 @@ function TopBar(props) {
           </div>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
         </MenuItem>
+        <Divider /> */}
         <MenuItem onClick={processLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
