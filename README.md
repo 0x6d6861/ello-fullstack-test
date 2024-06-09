@@ -1,7 +1,5 @@
 # Ello Engineering Challenge
 
-# Fullstack Project
-
 This project consists of a backend and a frontend service, both of which can be deployed using Docker and Docker Compose. The backend is a Node.js application using TypeScript, and the frontend is a React application using Vite.
 
 ## Prerequisites
@@ -34,6 +32,11 @@ This project consists of a backend and a frontend service, both of which can be 
 ```
 
 ## Running the Project
+
+### Backend changes
+
+1. I added a uid to the Book type definition to make it easier to manage on the frontend
+2. 'csrfPrevention: false' on the Apollo Server to that my frontend can call the endpoint from the gateway.
 
 ### Using Docker Compose
 
