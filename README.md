@@ -1,3 +1,166 @@
+# Ello Engineering Challenge
+
+# Fullstack Project
+
+This project consists of a backend and a frontend service, both of which can be deployed using Docker and Docker Compose. The backend is a Node.js application using TypeScript, and the frontend is a React application using Vite.
+
+## Prerequisites
+
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- [Make](https://www.gnu.org/software/make/)
+
+## Project Structure
+
+```
+.
+├── backend
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── src
+│       └── app.ts
+├── frontend
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── src
+│       └── main.tsx
+├── gateway
+│   ├── Dockerfile
+│   └── nginx.conf
+├── docker-compose.yml
+└── Makefile
+```
+
+## Running the Project
+
+### Using Docker Compose
+
+1. **Build and start the services:**
+
+   ```sh
+   docker-compose up --build
+   ```
+
+   This will build the Docker images for the backend, frontend, and gateway services and start them.
+
+2. **Access the services:**
+
+   - The frontend will be accessible at [http://localhost](http://localhost)
+   - The backend API will be accessible at [http://localhost/api](http://localhost/api)
+
+### Using Makefile
+
+1. **Build and start the services:**
+
+   ```sh
+   make
+   ```
+
+   or
+
+   ```sh
+   make all
+   ```
+
+2. **Other Makefile commands:**
+
+   - **Build the services:**
+
+     ```sh
+     make build
+     ```
+
+   - **Start the services:**
+
+     ```sh
+     make up
+     ```
+
+   - **Stop the services:**
+
+     ```sh
+     make down
+     ```
+
+   - **Clean up the services and network:**
+
+     ```sh
+     make clean
+     ```
+
+   - **Tail the logs for all services:**
+
+     ```sh
+     make logs
+     ```
+
+   - **Rebuild and restart the services:**
+
+     ```sh
+     make restart
+     ```
+
+   - **Check the status of the services:**
+
+     ```sh
+     make status
+     ```
+
+## Development
+
+### Backend
+
+- Navigate to the `backend` folder:
+
+  ```sh
+  cd backend
+  ```
+
+- Install dependencies:
+
+  ```sh
+  npm install
+  ```
+
+- Start the development server:
+
+  ```sh
+  npm run start:dev
+  ```
+
+### Frontend
+
+- Navigate to the `frontend` folder:
+
+  ```sh
+  cd frontend
+  ```
+
+- Install dependencies:
+
+  ```sh
+  npm install
+  ```
+
+- Start the development server:
+
+  ```sh
+  npm run dev
+  ```
+
+## Configuration
+
+- The backend and frontend services are configured to run on ports `4000` and `3000`, respectively.
+- The Nginx gateway service listens on port `80` and routes requests to the appropriate service.
+
+============================================================================================
+ 
+ 
+ 
+ 
+ 
  ![svgviewer-output](https://github.com/ElloTechnology/backend_takehome/assets/3518127/561bc8d4-bffc-4360-b9ea-61e876bcec93)
 
 
