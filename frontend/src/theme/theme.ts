@@ -46,12 +46,30 @@ export const theme = createTheme({
             }
         }
     },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: '1.5rem',
+        }
+      }
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: '1rem',
+        }
+      }
+    },
     MuiButton: {
+      defaultProps: {
+        disableElevation: true
+      },
       styleOverrides: {
         root: {
           fontWeight: 700,
           textTransform: 'none',
           fontSize: '1rem',
+          borderRadius: '1.5rem',
           // padding: '0.75rem 1.5rem'
         }
       }
