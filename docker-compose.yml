@@ -1,0 +1,44 @@
+version: '3.9'
+
+networks:
+  main_network:
+    driver: bridge
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "4000:4000"
+    command: npm start
+    networks:
+      - main_network
+    environment:
+      - NODE_ENV=production
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    command: serve -s dist
+    environment:
+      - NODE_ENV=production
+      - VITE_NODE_ENV=production
+      - VITE_BACKEND_URL=/api
+      - VITE_GRAPHQL_URL=/api
+    networks:
+      - main_network
+
+  gateway:
+    build:
+      context: ./gateway
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - main_network

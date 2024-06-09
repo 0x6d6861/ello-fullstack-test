@@ -1,30 +1,19 @@
-FROM node:20-alpine as builder
+FROM node:alpine
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package.json ./
+COPY package*.json ./
+
 COPY yarn.lock ./
 
-COPY . ./
+RUN yarn install --legacy-peer-deps
 
-RUN rm ./.env.production
-RUN mv ./.env ./.env.production
-
-RUN yarn install
+COPY . .
 
 RUN yarn run build
 
-FROM nginx:alpine
+RUN yarn global add serve
 
-WORKDIR /etc/nginx/html/
+EXPOSE 3000
 
-RUN rm -rf *
-
-COPY --from=builder /app/dist/ ./
-
-RUN rm /etc/nginx/conf.d/default.conf
-COPY _nginx/frontend.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
-
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+CMD ["serve", "-s", "dist", "-p", "3000"]
